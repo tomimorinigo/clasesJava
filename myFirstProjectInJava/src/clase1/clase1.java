@@ -1,4 +1,4 @@
-package clases;
+package clase1;
 
 public class clase1 {
 	
@@ -16,6 +16,7 @@ public class clase1 {
 			System.out.println(num);
 			num++;
 		}
+		
 		
 		*/
 		
