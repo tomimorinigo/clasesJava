@@ -13,6 +13,9 @@ public class Principal {
 		Producto[] listaProductos = new Producto[10];
 		LocalDate nacimiento = LocalDate.of(2003, 7, 9);
 		Persona persona1 = new Persona("Tomas", "Morinigo", nacimiento);
+		DescuentoPorcentajeConTope desc1 = new DescuentoPorcentajeConTope(60000);
+		desc1.setValorDesc(30);
+		
 		
 		try {
 			int i = 0;
@@ -33,6 +36,7 @@ public class Principal {
 			System.out.println(persona1);
 			System.out.println("La edad de "+ persona1.getNombre() + " es "+ persona1.edad() + " anios");
 			Carrito carrito1 = new Carrito(listaProductos);
+			carrito1.setDescuento(desc1);
 			System.out.println("El costo final del carrito es de: $" + carrito1.costoFinal());
 		} catch (IOException e) {
 			System.out.println("Algo salio mal!");

@@ -9,6 +9,7 @@ public class Carrito {
 	//Atributos
 	Producto[] listaProductos;
 	LocalDate fechaCompra;
+	Descuento descuento;
 
 	//Constructor
 	public Carrito(Producto[] listaPro) {
@@ -29,6 +30,10 @@ public class Carrito {
 		return fechaCompra;
 	}
 	
+	public void setDescuento(Descuento desc) {
+		this.descuento = desc;
+	}
+	
 	//To String
 	@Override
 	public String toString() {
@@ -41,6 +46,10 @@ public class Carrito {
 		
 		for (int i = 0; i < listaProductos.length; i++) {
 			total += listaProductos[i].costoFinal();
+		}
+		
+		if(this.descuento != null) {
+			total = descuento.valorFinal(total);
 		}
 		
 		return total;
