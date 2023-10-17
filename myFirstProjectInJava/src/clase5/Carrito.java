@@ -1,28 +1,29 @@
 package clase5;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Carrito {
 
-	//Atributos
-	Producto[] listaProductos;
-	LocalDate fechaCompra;
-	Descuento descuento;
+	//Attributes
+	private List<Producto> listaProductos;
+	private LocalDate fechaCompra;
+	private Descuento descuento;
 
 	//Constructor
-	public Carrito(Producto[] listaPro) {
+	public Carrito(List<Producto> listaPro) {
 		this.listaProductos = listaPro;
 		this.fechaCompra = LocalDate.now();
 	}
 	
 	//Getters y Setters
-	public Producto[] getListaProductos() {
+	public List<Producto> getListaProductos() {
 		return listaProductos;
 	}
 
-	public void setListaProductos(Producto[] listaProductos) {
+	public void setListaProductos(List<Producto> listaProductos) {
 		this.listaProductos = listaProductos;
 	}
 	
@@ -37,19 +38,28 @@ public class Carrito {
 	//To String
 	@Override
 	public String toString() {
-		return "Carrito [listaProductos=" + Arrays.toString(listaProductos) + ", fechaCompra=" + fechaCompra + "]";
+		return "Carrito [listaProductos=" + listaProductos + ", fechaCompra=" + fechaCompra + "]";
 	}
 	
 	//Metodos
-	public float costoFinal() {
+	public float costoFinal() throws CarritoEnCero, MontoNegativo{
 		float total = 0;
+	
+		for (Producto producto : listaProductos) {
+			total += producto.costoFinal();
+		}
 		
-		for (int i = 0; i < listaProductos.length; i++) {
-			total += listaProductos[i].costoFinal();
+		System.out.println(listaProductos);
+		
+		if(total == 0) {
+			throw new CarritoEnCero(total);
 		}
 		
 		if(this.descuento != null) {
 			total = descuento.valorFinal(total);
+			if(total < 0) {
+				throw new MontoNegativo(total);
+			}
 		}
 		
 		return total;
